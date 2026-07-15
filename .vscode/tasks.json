@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Android: 检查 USB 设备",
+      "type": "process",
+      "command": "${env:LOCALAPPDATA}\\Android\\Sdk\\platform-tools\\adb.exe",
+      "args": ["devices", "-l"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Android: 构建 Debug APK",
+      "type": "process",
+      "command": "${workspaceFolder}\\gradlew.bat",
+      "args": ["assembleDebug"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "JAVA_HOME": "D:\\Professional software\\jdk17",
+          "ANDROID_HOME": "${env:LOCALAPPDATA}\\Android\\Sdk"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gradle"]
+    },
+    {
+      "label": "Android: 安装 Debug APK",
+      "type": "process",
+      "command": "${workspaceFolder}\\gradlew.bat",
+      "args": ["installDebug"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "JAVA_HOME": "D:\\Professional software\\jdk17",
+          "ANDROID_HOME": "${env:LOCALAPPDATA}\\Android\\Sdk"
+        }
+      },
+      "problemMatcher": ["$gradle"]
+    },
+    {
+      "label": "Android: USB 安装并启动",
+      "type": "process",
+      "command": "${env:LOCALAPPDATA}\\Android\\Sdk\\platform-tools\\adb.exe",
+      "args": [
+        "shell",
+        "am",
+        "start",
+        "-n",
+        "com.example.tuoshouji/.MainActivity"
+      ],
+      "dependsOrder": "sequence",
+      "dependsOn": "Android: 安装 Debug APK",
+      "problemMatcher": []
+    }
+  ]
+}
+

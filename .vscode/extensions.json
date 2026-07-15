@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "androidgradletools.android-ide-extension",
+    "fwcd.kotlin",
+    "vscjava.vscode-gradle",
+    "redhat.java"
+  ]
+}
+
